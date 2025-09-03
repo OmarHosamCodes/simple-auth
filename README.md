@@ -15,6 +15,16 @@ Endpoints:
 3. Install deps: `bun install`
 4. Start dev server: `bun run dev`
 
+### Database scripts
+
+Run with Bun (ensure env vars loaded):
+
+- Migrate: `bun run db:migrate`
+- Status: `bun run db:status`
+- Seed: `bun run db:seed`
+- Drop: `bun run db:drop`
+- Reset (drop + migrate + seed): `bun run db:reset`
+
 ### Auth Flow
 
 1. Register user -> stores hashed password (bcrypt)
