@@ -1,24 +1,15 @@
 import dotenv from "dotenv";
-import express from "express";
+import { createApp } from "./app";
 import { initDb } from "./db";
-import authRoutes from "./routes/auth.routes";
 
 dotenv.config();
-
-const app = express();
-app.use(express.json());
-
-app.get("/health", (_req, res) => {
-	res.json({ status: "ok", timestamp: new Date().toISOString() });
-});
-
-app.use("/api", authRoutes);
 
 const port = process.env.PORT || 8080;
 
 const start = async () => {
 	try {
 		await initDb();
+		const app = createApp();
 		app.listen(port, () => {
 			console.log(`Auth API listening on :${port}`);
 		});
@@ -28,4 +19,9 @@ const start = async () => {
 	}
 };
 
-start();
+// Only auto-start when executed directly (not when imported in tests)
+if (import.meta.main) {
+	start();
+}
+
+export { start };
